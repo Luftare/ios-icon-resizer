@@ -72,6 +72,9 @@ const app = new Vue({
       },
     ],
   },
+  mounted() {
+    document.querySelector('.page').hidden = false;
+  },
   computed: {
     requiredInputProvidedForResizing() {
       return this.sourcePath && this.outputPath;
