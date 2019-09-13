@@ -1,0 +1,124 @@
+<body>
+  <div id="root" class="page">
+    <div class="split">
+      <div id="drag">
+        Drag source image here
+      </div>
+      <div class="centered">
+        <img :src="sourcePath" v-if="!!sourcePath" />
+      </div>
+    </div>
+
+    <div>
+      <label>
+        <input type="checkbox" v-model="platformFilters.iPhone" /> iPhone
+      </label>
+      <label>
+        <input type="checkbox" v-model="platformFilters.iPad" /> iPad
+      </label>
+    </div>
+
+    <div class="centered-vertically">
+      <button id="output-select__handle">Select destination</button>
+      <div style="margin-left: 16px;">
+        {{ outputPath || 'Destination not selected.' }}
+      </div>
+    </div>
+
+    <input type="file" webkitdirectory id="output-select__input" />
+
+    <div class="info-text">{{ statusText || '-' }}</div>
+
+    <button
+      @click="createResizedImages()"
+      :disabled="!requiredInputProvidedForResizing"
+    >
+      Create {{ flattenedVersions.length }} images
+    </button>
+  </div>
+</body>
+
+<script src="client.js"></script>
+<style>
+  * {
+    outline: none;
+    user-select: none;
+    font-family: sans-serif;
+    font-size: 14px;
+  }
+
+  body {
+    margin: 0;
+    background-color: #eefefe;
+  }
+
+  #root {
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  #drag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    text-align: center;
+    background-color: paleturquoise;
+    padding: 16px;
+    box-sizing: border-box;
+    border: solid DarkTurquoise 4px;
+    box-sizing: border-box;
+  }
+
+  button {
+    display: block;
+    padding: 16px;
+    background-color: mediumturquoise;
+    border: none;
+    box-sizing: border-box;
+  }
+
+  button:hover {
+    background-color: DarkTurquoise;
+  }
+
+  button:disabled {
+    background-color: lightgrey;
+    color: grey;
+  }
+
+  #output-select__input {
+    display: none;
+  }
+
+  img {
+    height: 100px;
+  }
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+  }
+
+  .centered-vertically {
+    display: flex;
+    align-items: center;
+  }
+
+  .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .info-text {
+    font-style: italic;
+  }
+</style>
